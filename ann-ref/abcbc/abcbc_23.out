@@ -1,0 +1,105 @@
+ ======================================================================
+                  generate.x - training set generation                 
+ ======================================================================
+ 
+ Copyright (C) 2015-2016 Nongnuch Artrith and Alexander Urban
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License in file `LICENSE' for more details.
+ 
+ ----------------------------------------------------------------------
+                   Generation of training set started                  
+ ----------------------------------------------------------------------
+ 
+ Number of atom types  : 1
+ types                 :    Al 
+ Number of structures  : 1
+ 
+ ----------------------------------------------------------------------
+                  Structural fingerprint basis set-up                  
+ ----------------------------------------------------------------------
+ 
+ Structural fingerprint (SF) set-up for Al
+ 
+ info
+ 
+ environment types: Al 
+ minimal distance : 0.75 Angstrom
+ maximal cut-off  : 6.50 Angstrom
+ size of basis    : 51
+ evaluations      : 0
+ 
+ Basis function type Behler2011
+ 
+ [see also: J. Behler, J. Chem. Phys. 134 (2011) 074106]
+ 
+ 
+      G  parameters
+ 
+   1  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.003
+   2  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.036
+   3  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.071
+   4  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.125
+   5  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.214
+   6  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.357
+   7  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   0.714
+   8  2  type2=Al  Rc =   6.500  Rs =   0.000  eta =   1.428
+   9  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.000
+  10  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.000
+  11  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.000
+  12  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.000
+  13  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.011
+  14  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.011
+  15  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.011
+  16  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.011
+  17  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.029
+  18  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.029
+  19  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.029
+  20  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.029
+  21  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.054
+  22  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.054
+  23  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.054
+  24  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.054
+  25  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   4.000  eta =   0.054
+  26  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   4.000  eta =   0.054
+  27  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =  16.000  eta =   0.054
+  28  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =  16.000  eta =   0.054
+  29  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.089
+  30  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.089
+  31  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.089
+  32  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.089
+  33  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   4.000  eta =   0.089
+  34  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   4.000  eta =   0.089
+  35  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =  16.000  eta =   0.089
+  36  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =  16.000  eta =   0.089
+  37  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.161
+  38  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.161
+  39  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.161
+  40  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.161
+  41  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   4.000  eta =   0.161
+  42  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   4.000  eta =   0.161
+  43  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =  16.000  eta =   0.161
+  44  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =  16.000  eta =   0.161
+  45  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   1.000  eta =   0.286
+  46  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   1.000  eta =   0.286
+  47  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   2.000  eta =   0.286
+  48  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   2.000  eta =   0.286
+  49  4  type2=Al  type3=Al  Rc =   6.500  lambda =  -1.000  zeta =   4.000  eta =   0.286
+  50  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =   4.000  eta =   0.286
+  51  4  type2=Al  type3=Al  Rc =   6.500  lambda =   1.000  zeta =  16.000  eta =   0.286
+ 
+ ----------------------------------------------------------------------
+                 Adding structures to the training set                 
+ ----------------------------------------------------------------------
+ 
+#     N  nAtoms  nTypes           E/atom  structure file (xsf)
+      1      10       1   1.26475916E-02  ../../abcbc/xsf/23.xsf
+      1  Al      85
+                                                                       
+                          2016-08-24  16:29:48                         
+                                                                       
+ ======================================================================
+                     Training set generation done.                     
+ ======================================================================
