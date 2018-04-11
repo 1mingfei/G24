@@ -679,5 +679,5 @@ class info(object):
 #    a.get_ADF_all()
 #    a.get_BOP(4,14) # cutoff and order,like Q2 Q4 Q6
 #
-a=info('ab.xsf','xsf',1)
+#a=info('ab.xsf','xsf',1)
 #    a.BOP_stats()
