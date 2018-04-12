@@ -209,6 +209,68 @@ def geo(filename,ftype,n_spe):
     data= ab.data
     return cell,data,tot_num
 
+def cell_expd_frac_2sides(cell,data,tot_num,xyz):
+    #expand x cells in both +/- x-direction
+    #expand y cells in both +/- y-direction
+    #expand z cells in both +/- z-direction
+    x,y,z=int(xyz[0]),int(xyz[1]),int(xyz[2])
+    #data_new=np.zeros(int(x*y*z*tot_num) , dtype='S2,float,float,float')
+    data_new=np.zeros((int((2*x+1)*(2*y+1)*(2*z+1)*tot_num),4))
+    #print(data)
+    for i in range(tot_num):
+        data_new[i][0]=data[i][0]
+        data_new[i][1]=data[i][1]/(2*x+1)+x/(2*x+1)
+        data_new[i][2]=data[i][2]/(2*y+1)+y/(2*y+1)
+        data_new[i][3]=data[i][3]/(2*z+1)+z/(2*z+1)
+    for ix in range(tot_num,tot_num*(x+1)):
+        data_new[ix][0]=data_new[ix%tot_num][0]
+        tmp=ix//(tot_num)
+        data_new[ix][1]=data_new[ix%tot_num][1]+tmp/(2*x+1)
+        data_new[ix][2]=data_new[ix%tot_num][2]
+        data_new[ix][3]=data_new[ix%tot_num][3]
+    for ix in range(tot_num*(x+1),tot_num*(2*x+1)):
+        data_new[ix][0]=data_new[ix%tot_num][0]
+        tmp=ix//(tot_num)-x
+        data_new[ix][1]=data_new[ix%tot_num][1]-(tmp)/(2*x+1)
+        data_new[ix][2]=data_new[ix%tot_num][2]
+        data_new[ix][3]=data_new[ix%tot_num][3]
+    for iy in range(tot_num*(2*x+1),tot_num*(2*x+1)*(y+1)):
+        data_new[iy][0]=data_new[iy%(tot_num*(2*x+1))][0]
+        data_new[iy][1]=data_new[iy%(tot_num*(2*x+1))][1]
+        tmp=iy//(tot_num*(2*x+1))
+        data_new[iy][2]=data_new[iy%(tot_num*(2*x+1))][2]+(tmp)/(2*y+1)
+        data_new[iy][3]=data_new[iy%(tot_num*(2*x+1))][3]
+    for iy in range(tot_num*(2*x+1)*(y+1),tot_num*(2*x+1)*(2*y+1)):
+        data_new[iy][0]=data_new[iy%(tot_num*(2*x+1))][0]
+        data_new[iy][1]=data_new[iy%(tot_num*(2*x+1))][1]
+        tmp=iy//(tot_num*(2*x+1))-y
+        data_new[iy][2]=data_new[iy%(tot_num*(2*x+1))][2]-(tmp)/(2*y+1)
+        data_new[iy][3]=data_new[iy%(tot_num*(2*x+1))][3]
+    for iz in range(tot_num*(2*x+1)*(2*y+1),tot_num*(2*x+1)*(2*y+1)*(z+1)):
+        data_new[iz][0]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][0]
+        data_new[iz][1]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][1]
+        data_new[iz][2]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][2]
+        tmp=iz//(tot_num*(2*x+1)*(2*y+1))
+        data_new[iz][3]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][3]+(tmp)/(2*z+1)
+    for iz in range(tot_num*(2*x+1)*(2*y+1)*(z+1),tot_num*(2*x+1)*(2*y+1)*(2*z+1)):
+        data_new[iz][0]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][0]
+        data_new[iz][1]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][1]
+        data_new[iz][2]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][2]
+        tmp=iz//(tot_num*(2*x+1)*(2*y+1))-z
+        data_new[iz][3]=data_new[iz%(tot_num*(2*x+1)*(2*y+1))][3]-(tmp)/(2*z+1)
+    cell[0][0]*=(2*x+1)
+    cell[0][1]*=(2*x+1)
+    cell[0][2]*=(2*x+1)
+    cell[1][0]*=(2*y+1)
+    cell[1][1]*=(2*y+1)
+    cell[1][2]*=(2*y+1)
+    cell[2][0]*=(2*z+1)
+    cell[2][1]*=(2*z+1)
+    cell[2][2]*=(2*z+1)
+    tot_num*=((2*x+1)*(2*y+1)*(2*z+1))
+    return cell,data_new,tot_num
+
+
 def cell_expd_frac(cell,data,tot_num,xyz):
     #expand x cells in x-direction
     #expand y cells in y-direction
@@ -251,6 +313,7 @@ def cell_expd_frac(cell,data,tot_num,xyz):
     return cell,data_new,tot_num
 
 def cell_expd_cart(cell,data,tot_num,xyz):
+    #expand total x, y and z in each direction
     #expand x cells in x-direction
     #expand y cells in y-direction
     #expand z cells in z-direction
@@ -304,6 +367,17 @@ def mv_atom_center(cell,data,tot_num,i_n):  # i_n for the atom need to move cent
         data[i][3]-=dis_z
     return data
 
+def mv_atom_center_frac(cell,data,tot_num,i_n):  # i_n for the atom need to move center
+    dis_x = data[i_n][2]-0.5
+    dis_y = data[i_n][2]-0.5
+    dis_z = data[i_n][3]-0.5
+    for i in range(tot_num):
+        data[i][1]-=dis_x
+        data[i][2]-=dis_y
+        data[i][3]-=dis_z
+    return data
+
+
 '''
 #check if atom coordinates is out of boundary (not finished yet)
 def check_boundary(cell,data,tot_num): 
@@ -321,8 +395,8 @@ def check_boundary(cell,data,tot_num):
 a=geo('CONTCAR','vasp',1)
 #pm=expd_prmt(a[0],6.5)
 #b=cell_expd_frac(a[0],a[1],a[2],pm)
-b=cell_expd_frac(a[0],a[1],a[2],[2,3,2])
-#c=mv_atom_center(b[0],b[1],b[2],3)
+b=cell_expd_frac_2sides(a[0],a[1],a[2],[1,1,3])
+#c=mv_atom_center_frac(b[0],b[1],b[2],0)
 #lst1=nb_lst(b[0],c,b[2],1,6.5)
 #print(lst1)
 #op.get_xsf_cart_in('F',a[0],a[1],a[2],'tmp.xsf')
