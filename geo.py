@@ -3,12 +3,12 @@ import formatxfer as fx
 import numpy as np
 import outputs as op
 
-#cell_expd_cart(cell,data,tot_num,x,y,z)  expand unit cell by x,y,z
+#cell_expd_frac_2sides(cell,data,tot_num,xyz) please use this one, this is super good!!!
 # mv_atom_center(cell,data,tot_num,in)   in for the atom need to move center
 # calc_dist_cart(lst,n1,n2,H) Cart calculated distance of n1 and n2
 # calc_dist_direct(lst,n1,n2,H) Direct calculated distance of n1 and n2
 # nb_lst(cell,data,tot_num,i_n,Rc)
-# expd_prmt(cell,Rc=6.5)
+# expd_prmt(cell,Rc=6.5) get the [x,y,z] int para for expanding the cell
 #get cosine of theta(angle of j-i-k)
 # get_cos_cart(lst,i,j,k,H)
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -77,18 +77,18 @@ def calc_dist_direct(lst,n1,n2,H):
 
 #get cell expand parameters 
 def expd_prmt(cell,Rc=6.5):
-    #if cell[0][0]> (2*Rc+0.5) : x=0
-    if cell[0][0]> (2*Rc+0.5) : x=1
+    dist_x=np.sqrt(np.dot(cell[0][0],cell[0][0].T))
+    dist_y=np.sqrt(np.dot(cell[0][1],cell[0][1].T))
+    dist_z=np.sqrt(np.dot(cell[0][2],cell[0][2].T))
+    if dist_x> Rc : x=1
     else:
-        x= int((2*Rc+0.5)/cell[0][0])+1
-    #if cell[1][1]> (2*Rc+0.5) : y=0
-    if cell[1][1]> (2*Rc+0.5) : y=1
+        x= int((Rc)/dist_x)+1
+    if dist_y> Rc : y=1
     else:
-        y= int((2*Rc+0.5)/cell[1][1])+1
-    #if cell[2][2]> (2*Rc+0.5) : z=0
-    if cell[2][2]> (2*Rc+0.5) : z=1
+        y= int((Rc)/dist_y)+1
+    if dist_z> Rc : z=1
     else:
-        z= int((2*Rc+0.5)/cell[2][2])+1
+        z= int((Rc)/dist_z)+1
     return [x,y,z]
 
 #get neighbor list for i_n within dist Rc
@@ -203,6 +203,7 @@ def get_cos_cart(lst,i,j,k,H):
     #return np.dot(aa,bb)/float(np.linalg.norm(aa))/float(np.linalg.norm(bb))
 
 def geo(filename,ftype,n_spe):
+    #maybe some old stupid habits....
     ab=fx.info(filename,ftype,n_spe)
     tot_num=ab.tot_num
     cell= ab.cell
@@ -392,15 +393,23 @@ def check_boundary(cell,data,tot_num):
 
 
 #testing use only comment all afterwards
-a=geo('CONTCAR','vasp',1)
-#pm=expd_prmt(a[0],6.5)
-#b=cell_expd_frac(a[0],a[1],a[2],pm)
-b=cell_expd_frac_2sides(a[0],a[1],a[2],[1,1,3])
+a=fx.info('CONTCAR','vasp',1)
+pm=expd_prmt(a.cell,6.5)
+tot_num_0=a.tot_num
+b=cell_expd_frac_2sides(a.cell,a.data,a.tot_num,pm)
+#op.get_xsf('F',b[0],b[1],b[2],'tmp.xsf')
+a.cell=b[0]
+a.data=b[1]
+a.tot_num=b[2]
+a.get_cfg_file('tmp.cfg')
+original_lst=[i for i in range(tot_num_0)]
+a.get_RDF_list(original_lst)
+
+#b=cell_expd_frac_2sides(a[0],a[1],a[2],[0,0,0])
 #c=mv_atom_center_frac(b[0],b[1],b[2],0)
 #lst1=nb_lst(b[0],c,b[2],1,6.5)
 #print(lst1)
 #op.get_xsf_cart_in('F',a[0],a[1],a[2],'tmp.xsf')
-op.get_xsf_cart_in('F',b[0],b[1],b[2],'tmp.xsf')
 
 #print(get_cos_direct(a[1],1,0,2,a[0]))  wrong!!!
 #print(get_cos_cart(a[1],1,0,2,a[0]))
