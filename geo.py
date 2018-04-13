@@ -9,7 +9,7 @@ import outputs as op
 # calc_dist_direct(lst,n1,n2,H) Direct calculated distance of n1 and n2
 # nb_lst(cell,data,tot_num,i_n,Rc)
 # expd_prmt(cell,Rc=6.5) get the [x,y,z] int para for expanding the cell
-#get cosine of theta(angle of j-i-k)
+# get cosine of theta(angle of j-i-k)
 # get_cos_cart(lst,i,j,k,H)
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # get_cos_direct(lst,i,j,k,H)  !!!!!!!!!!!!still have some problem
@@ -77,9 +77,12 @@ def calc_dist_direct(lst,n1,n2,H):
 
 #get cell expand parameters 
 def expd_prmt(cell,Rc=6.5):
-    dist_x=np.sqrt(np.dot(cell[0][0],cell[0][0].T))
-    dist_y=np.sqrt(np.dot(cell[0][1],cell[0][1].T))
-    dist_z=np.sqrt(np.dot(cell[0][2],cell[0][2].T))
+    dist_x=np.sqrt(np.dot(cell[0],cell[0].T))
+    dist_y=np.sqrt(np.dot(cell[1],cell[1].T))
+    dist_z=np.sqrt(np.dot(cell[2],cell[2].T))
+    print(dist_x)
+    print(dist_y)
+    print(dist_z)
     if dist_x> Rc : x=1
     else:
         x= int((Rc)/dist_x)+1
@@ -378,7 +381,6 @@ def mv_atom_center_frac(cell,data,tot_num,i_n):  # i_n for the atom need to move
         data[i][3]-=dis_z
     return data
 
-
 '''
 #check if atom coordinates is out of boundary (not finished yet)
 def check_boundary(cell,data,tot_num): 
@@ -387,14 +389,9 @@ def check_boundary(cell,data,tot_num):
         tmp = int(data[i][1]/ cell[0][0])
 '''
 
-
-
-
-
-
-#testing use only comment all afterwards
 a=fx.info('CONTCAR','vasp',1)
-pm=expd_prmt(a.cell,6.5)
+cutoff=3.5
+pm=expd_prmt(a.cell,cutoff)
 tot_num_0=a.tot_num
 b=cell_expd_frac_2sides(a.cell,a.data,a.tot_num,pm)
 #op.get_xsf('F',b[0],b[1],b[2],'tmp.xsf')
@@ -403,19 +400,8 @@ a.data=b[1]
 a.tot_num=b[2]
 a.get_cfg_file('tmp.cfg')
 original_lst=[i for i in range(tot_num_0)]
-a.get_RDF_list(original_lst)
 
-#b=cell_expd_frac_2sides(a[0],a[1],a[2],[0,0,0])
-#c=mv_atom_center_frac(b[0],b[1],b[2],0)
-#lst1=nb_lst(b[0],c,b[2],1,6.5)
-#print(lst1)
-#op.get_xsf_cart_in('F',a[0],a[1],a[2],'tmp.xsf')
-
-#print(get_cos_direct(a[1],1,0,2,a[0]))  wrong!!!
-#print(get_cos_cart(a[1],1,0,2,a[0]))
-
-#print(get_cos_direct(c,133,170,174,b[0]))
-#print(np.arccos(get_cos_cart(c,0,0,1,b[0])) /float(np.pi) *  180.0)
-
-
-
+#a.get_RDF_list(original_lst,cutoff)
+#a.get_ADF_list(original_lst,cutoff)
+#Q=a.get_BOP(original_lst,cutoff,8)
+#np.save('saved_values/Q_8.npy',Q)
